@@ -3,7 +3,8 @@
 # install
 sudo apt install -y git \
     tmux \
-    zsh
+    zsh \
+    vim
 
 # unlink
 rm -rf "$HOME/.oh-my-zsh" \
@@ -45,7 +46,7 @@ sudo apt-get install terraform
 # https://docs.docker.com/engine/install/ubuntu/
 # Add Docker's official GPG key:
 sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -54,19 +55,12 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
 
 # install datagrip
-sudo snap install datagrip --classic
-sudo snap install code --classic
-
-# install chrome
-wget https://dl-ssl.google.com/linux/linux_signing_key.pub -O /tmp/google.pub
-gpg --no-default-keyring --keyring /etc/apt/keyrings/google-chrome.gpg --import /tmp/google.pub
-echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-sudo apt-get update 
-sudo apt-get install -y google-chrome-stable
+sudo snap install -y datagrip --classic
+sudo snap install -y code --classic
 
 # update default shell
 # https://askubuntu.com/questions/131823/how-to-make-zsh-the-default-shell
