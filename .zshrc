@@ -6,4 +6,5 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-if [ -z $TMUX ]; then; tmux; fi
+[ -z "$TMUX" ] && tmux
+[ -n "$TMUX" ] && export TERM=xterm-256color
