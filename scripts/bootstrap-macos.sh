@@ -13,7 +13,6 @@ ln -s "$(pwd)/.zsh-autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosug
 ln -s "$(pwd)/.zsh-syntax-highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
 ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
-ln -s "$(pwd)/.tmux.conf" "$HOME/.tmux.conf"
 
 # install brew
 brew bundle --file=Brewfile

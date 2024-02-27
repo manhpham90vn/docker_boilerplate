@@ -2,7 +2,6 @@
 
 # install
 sudo apt install -y git \
-    tmux \
     zsh \
     vim
 
@@ -19,7 +18,6 @@ ln -s "$(pwd)/.zsh-autosuggestions" "$HOME/.oh-my-zsh/custom/plugins/zsh-autosug
 ln -s "$(pwd)/.zsh-syntax-highlighting" "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
 ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
-ln -s "$(pwd)/.tmux.conf" "$HOME/.tmux.conf"
 
 # install ansible
 # https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
