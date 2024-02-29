@@ -17,3 +17,7 @@ alias aws='docker run --rm -it public.ecr.aws/aws-cli/aws-cli'
 alias eb='docker run --rm -it manhpv151090/ebcli'
 
 alias sam='docker run --rm -it manhpv151090/sam'
+
+alias kubectl='docker run --rm -it manhpv151090/kubectl'
+
+alias minikube='docker run --rm -it manhpv151090/minikube'
