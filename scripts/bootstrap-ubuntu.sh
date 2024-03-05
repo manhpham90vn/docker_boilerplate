@@ -1,10 +1,111 @@
 #!/bin/bash
 
-# install
+echo "Bootstraping Ubuntu"
+
+# install tools
+echo "Install tools"
 sudo apt install -y git \
     zsh \
     vim \
-    curl
+    curl \
+    zsh
 
-source $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/update-submodules.sh
-source $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/symlink.sh
+# unlink existing before install
+echo "Unlink existing zsh"
+rm -rf "$HOME/.oh-my-zsh"
+
+# https://ohmyz.sh/#install
+echo "Install oh-my-zsh"
+git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
+echo "Install zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh
+echo "Install zsh-syntax-highlighting"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# unlink existing before install
+echo "Unlink existing .zshrc and .gitconfig"
+rm -rf "$HOME/.zshrc" \
+    "$HOME/.gitconfig"
+
+# link
+echo "Link .zshrc and .gitconfig"
+ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
+ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
+
+# install docker
+echo "Install docker"
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Docker post-installation
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Install docker-compose
+sudo curl -SL https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+# install pyenv
+echo "Install pyenv"
+curl https://pyenv.run | bash
+
+# install pyenv dependencies
+echo "Install pyenv dependencies"
+sudo apt update
+sudo apt install -y build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+chsh -s $(which zsh)
+
+# install terraform
+echo "Install terraform"
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+gpg --no-default-keyring \
+--keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+--fingerprint
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update
+sudo apt-get install -y terraform
+
+# install kubectl
+echo "Install kubectl"
+curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+# install helm
+# install ansible
+# install aws cli
+# install sam cli
+# install eb cli
+# install gvm
+# install nginx
+# install nvm
+# install rbenv
+# install mysql
+# install postgres
+# install redis
+# install mongodb
