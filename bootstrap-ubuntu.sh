@@ -3,7 +3,7 @@
 echo "Bootstraping Ubuntu"
 
 # install tools
-echo "Install tools"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install tools"
 sudo apt install -y git \
     zsh \
     vim \
@@ -11,33 +11,34 @@ sudo apt install -y git \
     zsh
 
 # unlink existing before install
-echo "Unlink existing zsh"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing zsh"
 rm -rf "$HOME/.oh-my-zsh"
 
 # https://ohmyz.sh/#install
-echo "Install oh-my-zsh"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install oh-my-zsh"
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
 # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
-echo "Install zsh-autosuggestions"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh
-echo "Install zsh-syntax-highlighting"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-syntax-highlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # unlink existing before install
-echo "Unlink existing .zshrc and .gitconfig"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing .zshrc and .gitconfig"
 rm -rf "$HOME/.zshrc" \
+    "$HOME/.zshrc.pre-oh-my-zsh*"\
     "$HOME/.gitconfig"
 
 # link
-echo "Link .zshrc and .gitconfig"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Link .zshrc and .gitconfig"
 ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
 ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
 
 # install docker
-echo "Install docker"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install docker"
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
@@ -53,30 +54,24 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# Docker post-installation
-sudo usermod -aG docker $USER
-newgrp docker
-
 # Install docker-compose
 sudo curl -SL https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # install pyenv
-echo "Install pyenv"
-curl https://pyenv.run | bash
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install pyenv"
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 
 # install pyenv dependencies
-echo "Install pyenv dependencies"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install pyenv dependencies"
 sudo apt update
 sudo apt install -y build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
-chsh -s $(which zsh)
-
 # install terraform
-echo "Install terraform"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install terraform"
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
 gpg --dearmor | \
@@ -91,7 +86,7 @@ sudo apt update
 sudo apt-get install -y terraform
 
 # install kubectl
-echo "Install kubectl"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install kubectl"
 curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
@@ -109,3 +104,9 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 # install postgres
 # install redis
 # install mongodb
+
+# Docker post-installation
+sudo usermod -aG docker $USER
+newgrp docker
+
+chsh -s $(which zsh)
