@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Bootstraping Ubuntu"
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Bootstraping Ubuntu"
 
 # install tools
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install tools"
