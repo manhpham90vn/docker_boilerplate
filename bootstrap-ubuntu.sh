@@ -26,6 +26,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-syntax-highlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
+# https://github.com/marlonrichert/zsh-autocomplete?tab=readme-ov-file#manual-installation
+bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-autocomplete"
+git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ~/.zsh-autocomplete
+
 # unlink existing before install
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing .zshrc and .gitconfig"
 rm -rf "$HOME/.zshrc" \
