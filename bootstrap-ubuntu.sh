@@ -38,7 +38,7 @@ rm -rf "$HOME/.zshrc" \
 
 # link
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Link .zshrc and .gitconfig"
-ln -s "$(pwd)/.zshrc" "$HOME/.zshrc"
+ln -s "$(pwd)/.zshrc_ubuntu" "$HOME/.zshrc"
 ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
 
 # install docker
