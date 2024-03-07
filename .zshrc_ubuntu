@@ -7,3 +7,8 @@ source ~/.zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # alias
 alias sync="git add --all && git commit -m 'sync' && git push"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
