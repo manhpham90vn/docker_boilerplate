@@ -4,11 +4,21 @@ bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Bootstraping Ubun
 
 # install tools
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install tools"
+
+sudo rm -rf /etc/apt/sources.list.d
+sudo apt remove -y git \
+    zsh \
+    vim \
+    curl \
+    zsh \
+    ca-certificates \
+    tree
 sudo apt install -y git \
     zsh \
     vim \
     curl \
-    zsh
+    zsh \
+    tree
 
 # unlink existing before install
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing zsh"
@@ -17,6 +27,7 @@ rm -rf "$HOME/.oh-my-zsh"
 # https://ohmyz.sh/#install
 # https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#1-clone-the-repository-
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install oh-my-zsh"
+rm -rf ~/.oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
 # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
@@ -29,6 +40,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 # https://github.com/marlonrichert/zsh-autocomplete?tab=readme-ov-file#manual-installation
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-autocomplete"
+rm -rf ~/.zsh-autocomplete
 git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ~/.zsh-autocomplete
 
 # unlink existing before install
