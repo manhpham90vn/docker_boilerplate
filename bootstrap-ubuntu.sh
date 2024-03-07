@@ -15,6 +15,7 @@ bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing z
 rm -rf "$HOME/.oh-my-zsh"
 
 # https://ohmyz.sh/#install
+# https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#1-clone-the-repository-
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install oh-my-zsh"
 git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 
@@ -42,6 +43,7 @@ ln -s "$(pwd)/.zshrc_ubuntu" "$HOME/.zshrc"
 ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
 
 # install docker
+# https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install docker"
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
@@ -54,19 +56,23 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# https://docs.docker.com/compose/install/standalone/
 sudo curl -SL https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # install pyenv
+# https://github.com/pyenv/pyenv?tab=readme-ov-file#basic-github-checkout
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install pyenv"
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 sudo apt update
 sudo apt install -y build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 # install terraform
+# https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install terraform"
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
@@ -82,12 +88,14 @@ sudo apt update
 sudo apt-get install -y terraform
 
 # install kubectl
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install kubectl"
 curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 
 # install helm
+# https://helm.sh/docs/intro/install/#from-apt-debianubuntu
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install helm"
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
@@ -96,6 +104,7 @@ sudo apt-get update
 sudo apt-get install -y helm
 
 # install ansible
+# https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
 bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install ansible"
 wget -O- "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367" | sudo gpg --dearmour -o /usr/share/keyrings/ansible-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/ansible.list
@@ -113,7 +122,12 @@ sudo apt update && sudo apt install -y ansible
 # install redis
 # install mongodb
 # install vagrant
+
 # install minikube
+# https://minikube.sigs.k8s.io/docs/start/
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+rm -rf minikube-linux-amd64
 
 # install virtualbox
 # install datagrip
