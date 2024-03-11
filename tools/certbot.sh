@@ -1,5 +1,5 @@
-DOMAIN=domain.com
-EMAIL=mail@gmail.com
+DOMAIN=runtimedev.com
+EMAIL=manhpv151090@gmail.com
 
 # Install certbot
 sudo dnf install -y augeas-libs
@@ -9,7 +9,7 @@ sudo /opt/certbot/bin/pip install certbot
 sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 
 # Create pem file and copy
-sudo certbot certonly -a manual --preferred-challenges dns --email $EMAIL --rsa-key-size 4096 -d $DOMAIN -d *.$DOMAIN
+sudo certbot certonly -a manual --agree-tos --preferred-challenges dns --email $EMAIL --rsa-key-size 4096 -d "$DOMAIN" -d "*.$DOMAIN"
 
 # Output
 sudo cat /etc/letsencrypt/live/$DOMAIN/privkey.pem
