@@ -1,126 +1,103 @@
 #!/bin/bash
 
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Bootstraping Ubuntu"
+aptAppList=(
+    "git"
+    "zsh"
+    "vim"
+    "curl"
+    "wget"
+    "tree"
+)
 
-# install tools
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install tools"
+debugPrint() {
+    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "$1"
+}
 
-sudo rm -rf /etc/apt/sources.list.d
-sudo apt remove -y git \
-    zsh \
-    vim \
-    curl \
-    zsh \
-    ca-certificates \
-    tree
-sudo apt install -y git \
-    zsh \
-    vim \
-    curl \
-    zsh \
-    tree
+checkApp() {
+    if ! [ -x "$(command -v $1)" ]; then
+        debugPrint "$1 is not installed"
+        return 1
+    fi
+    debugPrint "$1 is installed"
+    return 0
+}
 
-# unlink existing before install
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing zsh"
-rm -rf "$HOME/.oh-my-zsh"
+checkDir() {
+    if [ -d "$1" ]; then
+        debugPrint "$1 exists"
+        return 1
+    fi
+    debugPrint "$1 does not exist"
+    return 0
+}
 
-# https://ohmyz.sh/#install
-# https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#1-clone-the-repository-
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install oh-my-zsh"
-rm -rf ~/.oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+checkFile() {
+    if [ -f "$1" ]; then
+        debugPrint "$1 exists"
+        return 1
+    fi
+    debugPrint "$1 does not exist"
+    return 0
+}
 
-# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+install() {
+    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/$1.sh
+}
 
-# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-syntax-highlighting"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+debugPrint "Bootstraping Ubuntu"
 
-# https://github.com/marlonrichert/zsh-autocomplete?tab=readme-ov-file#manual-installation
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install zsh-autocomplete"
-rm -rf ~/.zsh-autocomplete
-git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ~/.zsh-autocomplete
+debugPrint "Update system"
+sudo apt update && sudo apt upgrade -y
 
-# unlink existing before install
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Unlink existing .zshrc and .gitconfig"
-rm -rf "$HOME/.zshrc" \
-    "$HOME/.zshrc.pre-oh-my-zsh*"\
+debugPrint "Install tools"
+
+for app in "${aptAppList[@]}"; do
+    checkApp "$app" || sudo apt install -y $app
+done
+
+debugPrint "Unlink existing zsh and gitconfig files"
+rm -rf "$HOME/.oh-my-zsh" \
+    "$HOME/.zshrc" \
+    "$HOME/.zshrc.pre-oh-my-zsh*" \
+    "$HOME/.zsh-autocomplete" \
     "$HOME/.gitconfig"
 
-# link
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Link .zshrc and .gitconfig"
-ln -s "$(pwd)/.zshrc_ubuntu" "$HOME/.zshrc"
-ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
+debugPrint "Install oh-my-zsh"
+checkDir "$HOME/.oh-my-zsh" && git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 
-# install docker
-# https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install docker"
-sudo apt-get update
-sudo apt-get install -y ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-# https://docs.docker.com/compose/install/standalone/
-sudo curl -SL https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+debugPrint "Install zsh-autosuggestions"
+checkDir "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" && git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# install pyenv
-# https://github.com/pyenv/pyenv?tab=readme-ov-file#basic-github-checkout
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install pyenv"
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-sudo apt update
-sudo apt install -y build-essential libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev curl \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+debugPrint "Install zsh-syntax-highlighting"
+checkDir  "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" && git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# install terraform
-# https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install terraform"
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-wget -O- https://apt.releases.hashicorp.com/gpg | \
-gpg --dearmor | \
-sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
-gpg --no-default-keyring \
---keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
---fingerprint
-echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-sudo tee /etc/apt/sources.list.d/hashicorp.list
-sudo apt update
-sudo apt-get install -y terraform
+debugPrint "Install zsh-autocomplete"
+checkDir "$HOME/.zsh-autocomplete" && git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git "$HOME/.zsh-autocomplete"
 
-# install kubectl
-# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install kubectl"
-curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
-chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+debugPrint "Link .zshrc and .gitconfig"
+checkFile "$HOME/.zshrc" && ln -s "$(pwd)/.zshrc_ubuntu" "$HOME/.zshrc"
+checkFile "$HOME/.gitconfig" && ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
 
-# install helm
-# https://helm.sh/docs/intro/install/#from-apt-debianubuntu
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install helm"
-curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-sudo apt-get install apt-transport-https --yes
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt-get update
-sudo apt-get install -y helm
+debugPrint "Install docker"
+checkApp "docker" || install "docker"
 
-# install ansible
-# https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
-bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "Install ansible"
-wget -O- "https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=get&search=0x6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367" | sudo gpg --dearmour -o /usr/share/keyrings/ansible-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/ansible-archive-keyring.gpg] http://ppa.launchpad.net/ansible/ansible/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/ansible.list
-sudo apt update && sudo apt install -y ansible
+debugPrint "Install docker-compose"
+checkApp "docker-compose" || install "docker-compose"
+
+debugPrint "Install pyenv"
+checkApp "pyenv" || install "pyenv"
+
+debugPrint "Install terraform"
+checkApp "terraform" || install "terraform"
+
+debugPrint "Install kubectl"
+checkApp "kubectl" || install "kubectl"
+
+debugPrint "Install helm"
+checkApp "helm" || install "helm"
+
+debugPrint "Install ansible"
+checkApp "ansible" || install "ansible"
 
 # install aws cli
 # install sam cli
@@ -134,32 +111,22 @@ sudo apt update && sudo apt install -y ansible
 # install redis
 # install mongodb
 # install vagrant
-
-# install minikube
-# https://minikube.sigs.k8s.io/docs/start/
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
-rm -rf minikube-linux-amd64
-
 # install virtualbox
 # install datagrip
-# install vscode
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-sudo apt install -y apt-transport-https
-sudo apt update
-sudo apt install -y code
 
-# install chrome
+debugPrint "Install minikube"
+checkApp "minikube" || install "minikube"
+
+debugPrint "Install vscode"
+checkApp "code" || install "vscode"
+
+debugPrint "Install chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P /tmp
 sudo apt install /tmp/google-chrome-stable_current_amd64.deb
 
-# Docker post-installation
+debugPrint "Docker post-installation"
 sudo usermod -aG docker $USER
 newgrp docker
 
-# change shell to zsh
+debugPrint "Change default shell to zsh"
 chsh -s $(which zsh)
