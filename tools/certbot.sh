@@ -9,7 +9,14 @@ sudo /opt/certbot/bin/pip install certbot
 sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 
 # Create pem file and copy
-sudo certbot certonly -a manual --agree-tos --preferred-challenges dns --email $EMAIL --rsa-key-size 4096 -d "$DOMAIN" -d "*.$DOMAIN"
+sudo certbot certonly -a manual \
+    --agree-tos \
+    --preferred-challenges dns \
+    --rsa-key-size 2048 \
+    --key-type rsa \
+    --email $EMAIL \
+    -d "$DOMAIN" \
+    -d "*.$DOMAIN"
 
 # Output
 sudo cat /etc/letsencrypt/live/$DOMAIN/privkey.pem
