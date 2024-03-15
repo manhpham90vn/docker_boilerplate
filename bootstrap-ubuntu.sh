@@ -56,7 +56,8 @@ for app in "${aptAppList[@]}"; do
 done
 
 debugPrint "Unlink existing zsh and gitconfig files"
-rm -rf "$HOME/.zshrc.pre-oh-my-zsh*"
+rm -rf "$HOME/.zshrc.pre-oh-my-zsh*" \
+    "$HOME/.zcompdump*"
 
 debugPrint "Install oh-my-zsh"
 checkDir "$HOME/.oh-my-zsh" && git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
@@ -111,7 +112,9 @@ checkApp "aws" || install "aws"
 # install vagrant
 # install virtualbox
 # install datagrip
-# install android studio
+
+debugPrint "Install android-studio"
+checkDir "/snap/android-studio" && install "android-studio"
 
 debugPrint "Install minikube"
 checkApp "minikube" || install "minikube"
