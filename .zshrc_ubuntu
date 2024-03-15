@@ -12,3 +12,12 @@ alias sync="git add --all && git commit -m 'sync' && git push"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# homebrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/manh/.dart-cli-completion/zsh-config.zsh ]] && . /home/manh/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
