@@ -1,11 +1,11 @@
 # My dotfiles
 
-## bootstrap
+## bootstrap macos
 ```shell
-./scripts/bootstrap.sh
+./bootstrap-macos.sh
 ```
 
-## update git submodules
+## bootstrap ubuntu
 ```shell
-./scripts/submodules.sh
+bootstrap-ubuntu.sh
 ```
