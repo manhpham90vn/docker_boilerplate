@@ -7,5 +7,5 @@
 
 ## bootstrap ubuntu
 ```shell
-bootstrap-ubuntu.sh
+./bootstrap-ubuntu.sh
 ```
