@@ -41,7 +41,7 @@ checkFile() {
 }
 
 install() {
-    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/$1.sh
+    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/install/$1.sh
 }
 
 debugPrint "Bootstraping Ubuntu"
@@ -56,11 +56,7 @@ for app in "${aptAppList[@]}"; do
 done
 
 debugPrint "Unlink existing zsh and gitconfig files"
-rm -rf "$HOME/.oh-my-zsh" \
-    "$HOME/.zshrc" \
-    "$HOME/.zshrc.pre-oh-my-zsh*" \
-    "$HOME/.zsh-autocomplete" \
-    "$HOME/.gitconfig"
+rm -rf "$HOME/.zshrc.pre-oh-my-zsh*"
 
 debugPrint "Install oh-my-zsh"
 checkDir "$HOME/.oh-my-zsh" && git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
@@ -99,7 +95,9 @@ checkApp "helm" || install "helm"
 debugPrint "Install ansible"
 checkApp "ansible" || install "ansible"
 
-# install aws cli
+debugPrint "Install aws"
+checkApp "aws" || install "aws"
+
 # install sam cli
 # install eb cli
 # install gvm
@@ -113,16 +111,22 @@ checkApp "ansible" || install "ansible"
 # install vagrant
 # install virtualbox
 # install datagrip
+# install android studio
 
 debugPrint "Install minikube"
 checkApp "minikube" || install "minikube"
+
+debugPrint "Install brew"
+checkApp "brew" || install "brew"
+
+debugPrint "Install fvm"
+checkApp "fvm" || install "fvm"
 
 debugPrint "Install vscode"
 checkApp "code" || install "vscode"
 
 debugPrint "Install chrome"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P /tmp
-sudo apt install /tmp/google-chrome-stable_current_amd64.deb
+checkApp "google-chrome" || install "chrome"
 
 debugPrint "Docker post-installation"
 sudo usermod -aG docker $USER

@@ -1,4 +1,4 @@
-git clone --depth 1 https://github.com/pyenv/pyenv.git "$HOME/.pyenv
+git clone --depth 1 https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
 
 sudo apt update
 sudo apt install -y build-essential libssl-dev zlib1g-dev \
