@@ -6,3 +6,6 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias sync="git add --all && git commit -m 'sync' && git push"
+
+# rbenv
+[[ -x "$(command -v rbenv)" ]] && eval "$(rbenv init - zsh)"
