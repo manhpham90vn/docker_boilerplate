@@ -99,11 +99,18 @@ checkApp "ansible" || install "ansible"
 debugPrint "Install aws"
 checkApp "aws" || install "aws"
 
-# install sam cli
-# install eb cli
+debugPrint "Install sam"
+checkApp "sam" || install "sam"
+
+debugPrint "Install ebcli"
+checkApp "eb" || install "ebcli"
+
 # install gvm
 # install nginx
-# install nvm
+
+debugPrint "Install nvm"
+checkApp "nvm" || install "nvm"
+
 # install rbenv
 # install mysql
 # install postgres
@@ -111,7 +118,9 @@ checkApp "aws" || install "aws"
 # install mongodb
 # install vagrant
 # install virtualbox
-# install datagrip
+
+debugPrint "Install datagrip"
+checkApp "datagrip" || install "datagrip"s
 
 debugPrint "Install android-studio"
 checkDir "/snap/android-studio" && install "android-studio"
