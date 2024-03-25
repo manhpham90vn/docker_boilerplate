@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/common.sh
+
 aptAppList=(
     "git"
     "zsh"
@@ -8,41 +10,6 @@ aptAppList=(
     "wget"
     "tree"
 )
-
-debugPrint() {
-    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "$1"
-}
-
-checkApp() {
-    if ! [ -x "$(command -v $1)" ]; then
-        debugPrint "$1 is not installed"
-        return 1
-    fi
-    debugPrint "$1 is installed"
-    return 0
-}
-
-checkDir() {
-    if [ -d "$1" ]; then
-        debugPrint "$1 exists"
-        return 1
-    fi
-    debugPrint "$1 does not exist"
-    return 0
-}
-
-checkFile() {
-    if [ -f "$1" ]; then
-        debugPrint "$1 exists"
-        return 1
-    fi
-    debugPrint "$1 does not exist"
-    return 0
-}
-
-install() {
-    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/install/$1.sh
-}
 
 debugPrint "Bootstraping Ubuntu"
 
