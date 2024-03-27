@@ -72,6 +72,12 @@ checkApp "sam" || install "sam"
 debugPrint "Install ebcli"
 checkApp "eb" || install "ebcli"
 
+debugPrint "Install gcloud"
+checkApp "gcloud" || install "gcloud-cli"
+
+debugPrint "Install cloud sql proxy"
+checkApp "cloud-sql-proxy" || install "cloud-sql-proxy"
+
 # install gvm
 # install nginx
 

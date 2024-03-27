@@ -1,5 +1,5 @@
 debugPrint() {
-    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/info.sh "$1"
+    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/info.sh "$1"
 }
 
 checkApp() {
@@ -30,5 +30,5 @@ checkFile() {
 }
 
 install() {
-    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/install/$1.sh
+    bash $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/../install/$1.sh
 }
