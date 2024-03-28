@@ -1,3 +1,4 @@
+# https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
 gpg --dearmor | \

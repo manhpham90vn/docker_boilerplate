@@ -43,46 +43,46 @@ checkFile "$HOME/.zshrc" && ln -s "$(pwd)/.zshrc_ubuntu" "$HOME/.zshrc"
 checkFile "$HOME/.gitconfig" && ln -s "$(pwd)/.gitconfig" "$HOME/.gitconfig"
 
 debugPrint "Install docker"
-checkApp "docker" || install "docker"
+checkApp "docker" && ubuntu_install "docker"
 
 debugPrint "Install docker-compose"
-checkApp "docker-compose" || install "docker-compose"
+checkApp "docker-compose" && ubuntu_install "docker-compose"
 
 debugPrint "Install pyenv"
-checkApp "pyenv" || install "pyenv"
+checkApp "pyenv" && ubuntu_install "pyenv"
 
 debugPrint "Install terraform"
-checkApp "terraform" || install "terraform"
+checkApp "terraform" && ubuntu_install "terraform"
 
 debugPrint "Install kubectl"
-checkApp "kubectl" || install "kubectl"
+checkApp "kubectl" && ubuntu_install "kubectl"
 
 debugPrint "Install helm"
-checkApp "helm" || install "helm"
+checkApp "helm" && ubuntu_install "helm"
 
 debugPrint "Install ansible"
-checkApp "ansible" || install "ansible"
+checkApp "ansible" && ubuntu_install "ansible"
 
 debugPrint "Install aws"
-checkApp "aws" || install "aws"
+checkApp "aws" && ubuntu_install "aws"
 
 debugPrint "Install sam"
-checkApp "sam" || install "sam"
+checkApp "sam" && ubuntu_install "sam"
 
 debugPrint "Install ebcli"
-checkApp "eb" || install "ebcli"
+checkApp "eb" && ubuntu_install "ebcli"
 
 debugPrint "Install gcloud"
-checkApp "gcloud" || install "gcloud-cli"
+checkApp "gcloud" && ubuntu_install "gcloud-cli"
 
 debugPrint "Install cloud sql proxy"
-checkApp "cloud-sql-proxy" || install "cloud-sql-proxy"
+checkApp "cloud-sql-proxy" && ubuntu_install "cloud-sql-proxy"
 
 # install gvm
 # install nginx
 
 debugPrint "Install nvm"
-checkApp "nvm" || install "nvm"
+checkApp "nvm" && ubuntu_install "nvm"
 
 # install rbenv
 # install mysql
@@ -93,25 +93,25 @@ checkApp "nvm" || install "nvm"
 # install virtualbox
 
 debugPrint "Install datagrip"
-checkApp "datagrip" || install "datagrip"s
+checkApp "datagrip" && ubuntu_install "datagrip"s
 
 debugPrint "Install android-studio"
-checkDir "/snap/android-studio" && install "android-studio"
+checkDir "/snap/android-studio" && ubuntu_install "android-studio"
 
 debugPrint "Install minikube"
-checkApp "minikube" || install "minikube"
+checkApp "minikube" && ubuntu_install "minikube"
 
 debugPrint "Install brew"
-checkApp "brew" || install "brew"
+checkApp "brew" && ubuntu_install "brew"
 
 debugPrint "Install fvm"
-checkApp "fvm" || install "fvm"
+checkApp "fvm" && ubuntu_install "fvm"
 
 debugPrint "Install vscode"
-checkApp "code" || install "vscode"
+checkApp "code" && ubuntu_install "vscode"
 
 debugPrint "Install chrome"
-checkApp "google-chrome" || install "chrome"
+checkApp "google-chrome" && ubuntu_install "chrome"
 
 debugPrint "Docker post-installation"
 sudo usermod -aG docker $USER

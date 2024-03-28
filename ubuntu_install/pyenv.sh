@@ -1,3 +1,4 @@
+# https://github.com/pyenv/pyenv?tab=readme-ov-file#basic-github-checkout
 git clone --depth 1 https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
 
 sudo apt update
