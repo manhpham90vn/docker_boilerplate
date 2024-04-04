@@ -40,5 +40,17 @@ checkDir "/Applications/OpenVPN Connect.app" || install "openvpn"
 debugPrint "Install charles"
 checkDir "/Applications/Charles.app" || install "charles"
 
+debugPrint "Install rbenv"
+checkApp "rbenv" || install "rbenv"
+
+debugPrint "Install nvm"
+checkApp "nvm" || install "nvm"
+
+debugPrint "Install g"
+checkApp "g" || install "g"
+
+debugPrint "Install pyenv"
+checkApp "pyenv" || install "pyenv"
+
 install "zsh"
 install "config"
