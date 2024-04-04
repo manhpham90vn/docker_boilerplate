@@ -52,5 +52,17 @@ checkApp "g" || install "g"
 debugPrint "Install pyenv"
 checkApp "pyenv" || install "pyenv"
 
+debugPrint "Install awscli"
+checkApp "aws" || install "awscli"
+
+debugPrint "Install samcli"
+checkApp "sam" || install "samcli"
+
+debugPrint "Install ebcli"
+checkApp "eb" || install "ebcli"
+
+debugPrint "Install ansible"
+checkApp "ansible" || install "ansible"
+
 install "zsh"
 install "config"
