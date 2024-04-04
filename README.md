@@ -1,11 +1,6 @@
 # My dotfiles
 
-## bootstrap macos
+## bootstrap
 ```shell
-./bootstrap-macos.sh
-```
-
-## bootstrap ubuntu
-```shell
-./bootstrap-ubuntu.sh
+./bootstrap.sh
 ```
