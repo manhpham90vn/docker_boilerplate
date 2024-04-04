@@ -1,68 +1,54 @@
 #!/bin/bash
 
-source $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/scripts/common.sh
+BREW_CASKROOM_DIR="/usr/local/Caskroom"
 
-debugPrint "Bootstraping MacOS"
+checkDir() {
+    if ! [ -d $BREW_CASKROOM_DIR/$1 ]; then
+        echo "Dir $1 is not found"
+        return 1
+    else
+        echo "$1 already exists"
+        return 0
+    fi
+}
 
-debugPrint "Install Homebrew"
-checkApp "brew" || install "brew"
+checkCommand() {
+    if ! (type $1 > /dev/null 2>&1); then
+        echo "Installing $1"
+        return 1
+    else
+        echo "$1 already installed"
+        return 0
+    fi
+}
 
-debugPrint "Install xcodes"
-checkApp "xcodes" || install "xcodes"
+checkIsFormulaeInstalled() {
+    if ! (brew list $1 > /dev/null 2>&1); then
+        echo "Installing $1"
+        return 1
+    else
+        echo "$1 already installed"
+        return 0
+    fi
+}
 
-debugPrint "Install Android Studio"
-checkDir "/Applications/Android Studio.app" || install "android-studio"
-
-debugPrint "Install Vscode"
-checkDir "/Applications/Visual Studio Code.app" || install "vscode"
-
-debugPrint "Install Sourcetree"
-checkDir "/Applications/Sourcetree.app" || install "sourcetree"
-
-debugPrint "Install iTerm2"
-checkDir "/Applications/iTerm.app" || install "iterm2"
-
-debugPrint "Install Docker"
-checkDir "/Applications/Docker.app" || install "docker"
-
-debugPrint "Install Postman"
-checkDir "/Applications/Postman.app" || install "postman"
-
-debugPrint "Install DataGrip"
-checkDir "/Applications/DataGrip.app" || install "datagrip"
-
-debugPrint "Install Chrome"
-checkDir "/Applications/Google Chrome.app" || install "chrome"
-
-debugPrint "Install OpenVPN"
-checkDir "/Applications/OpenVPN Connect.app" || install "openvpn"
-
-debugPrint "Install charles"
-checkDir "/Applications/Charles.app" || install "charles"
-
-debugPrint "Install rbenv"
-checkApp "rbenv" || install "rbenv"
-
-debugPrint "Install nvm"
-checkApp "nvm" || install "nvm"
-
-debugPrint "Install g"
-checkApp "g" || install "g"
-
-debugPrint "Install pyenv"
-checkApp "pyenv" || install "pyenv"
-
-debugPrint "Install awscli"
-checkApp "aws" || install "awscli"
-
-debugPrint "Install samcli"
-checkApp "sam" || install "samcli"
-
-debugPrint "Install ebcli"
-checkApp "eb" || install "ebcli"
-
-debugPrint "Install ansible"
-checkApp "ansible" || install "ansible"
-
-install "zsh"
-install "config"
+checkCommand "brew" || NONINTERACTIVE=1  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+checkDir "google-chrome" || brew install --cask google-chrome
+checkDir "android-studio" || brew install --cask android-studio
+checkDir "visual-studio-code" || brew install --cask visual-studio-code
+checkDir "docker" || brew install --cask docker
+checkDir "sourcetree" || brew install --cask sourcetree
+checkDir "iterm2" || brew install --cask iterm2
+checkDir "datagrip" || brew install --cask datagrip
+checkDir "postman" || brew install --cask postman
+checkDir "charles" || brew install --cask charles
+checkDir "openvpn-connect" || brew install --cask openvpn-connect
+checkDir "virtualbox" || brew install --cask virtualbox
+checkIsFormulaeInstalled "xcodes" || brew install xcodesorg/made/xcodes
+checkIsFormulaeInstalled "rbenv" || brew install rbenv
+checkIsFormulaeInstalled "nvm" || brew install nvm
+checkIsFormulaeInstalled "pyenv" || brew install pyenv
+rm -rf "$HOME/.oh-my-zsh"
+git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
