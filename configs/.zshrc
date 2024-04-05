@@ -20,7 +20,7 @@ fi
 
 # g
 unalias g
-source "$HOME/.g/env"
+[[ -d $HOME/.g/ ]] && source "$HOME/.g/env"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"

@@ -32,7 +32,7 @@ checkIsFormulaeInstalled() {
     fi
 }
 
-checkCommand "brew" || NONINTERACTIVE=1  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 checkDir "google-chrome" || brew install --cask google-chrome
 checkDir "android-studio" || brew install --cask android-studio
 checkDir "visual-studio-code" || brew install --cask visual-studio-code
@@ -52,3 +52,6 @@ rm -rf "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+rm -rf "$HOME/.zshrc" "$HOME/.gitconfig"
+ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
+ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"
