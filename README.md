@@ -2,5 +2,5 @@
 
 ## bootstrap
 ```shell
-./bootstrap.sh
+./bootstrap
 ```
