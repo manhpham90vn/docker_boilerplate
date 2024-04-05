@@ -22,8 +22,3 @@ eval "$(pyenv init -)"
 
 # goenv
 [[ -x "$(command -v goenv)" ]] && eval "$(goenv init -)"
-## [Completion]
-## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/manh/.dart-cli-completion/zsh-config.zsh ]] && . /Users/manh/.dart-cli-completion/zsh-config.zsh || true
-## [/Completion]
-
