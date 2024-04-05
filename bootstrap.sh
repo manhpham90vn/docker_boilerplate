@@ -41,6 +41,16 @@ checkIsFormulaeInstalled "nvm" || brew install nvm
 checkIsFormulaeInstalled "pyenv" || brew install pyenv
 checkIsFormulaeInstalled "goenv" || brew install goenv
 checkIsFormulaeInstalled "fvm" || (brew tap leoafarias/fvm && brew install fvm)
+checkIsFormulaeInstalled "awscli" || brew install awscli
+checkIsFormulaeInstalled "aws-sam-cli" || brew install aws-sam-cli
+checkIsFormulaeInstalled "aws-elasticbeanstalk" || brew install aws-elasticbeanstalk
+checkIsFormulaeInstalled "google-cloud-sdk" || brew install --cask google-cloud-sdk
+checkIsFormulaeInstalled "cloud-sql-proxy" || brew install cloud-sql-proxy
+checkIsFormulaeInstalled "terraform" || (brew tap hashicorp/tap && brew install hashicorp/tap/terraform)
+checkIsFormulaeInstalled "ansible" || brew install ansible
+checkIsFormulaeInstalled "kubectl" || brew install kubectl
+checkIsFormulaeInstalled "helm" || brew install helm
+checkIsFormulaeInstalled "minikube" || brew install minikube
 rm -rf "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
