@@ -2,16 +2,6 @@
 
 BREW_CASKROOM_DIR="/usr/local/Caskroom"
 
-checkDir() {
-    if ! [ -d $BREW_CASKROOM_DIR/$1 ]; then
-        echo "Dir $1 is not found"
-        return 1
-    else
-        echo "$1 already exists"
-        return 0
-    fi
-}
-
 checkCommand() {
     if ! (type $1 > /dev/null 2>&1); then
         echo "Installing $1"
@@ -33,17 +23,17 @@ checkIsFormulaeInstalled() {
 }
 
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-checkDir "google-chrome" || brew install --cask google-chrome
-checkDir "android-studio" || brew install --cask android-studio
-checkDir "visual-studio-code" || brew install --cask visual-studio-code
-checkDir "docker" || brew install --cask docker
-checkDir "sourcetree" || brew install --cask sourcetree
-checkDir "iterm2" || brew install --cask iterm2
-checkDir "datagrip" || brew install --cask datagrip
-checkDir "postman" || brew install --cask postman
-checkDir "charles" || brew install --cask charles
-checkDir "openvpn-connect" || brew install --cask openvpn-connect
-checkDir "virtualbox" || brew install --cask virtualbox
+checkIsFormulaeInstalled "google-chrome" || brew install --cask google-chrome
+checkIsFormulaeInstalled "android-studio" || brew install --cask android-studio
+checkIsFormulaeInstalled "visual-studio-code" || brew install --cask visual-studio-code
+checkIsFormulaeInstalled "docker" || brew install --cask docker
+checkIsFormulaeInstalled "sourcetree" || brew install --cask sourcetree
+checkIsFormulaeInstalled "iterm2" || brew install --cask iterm2
+checkIsFormulaeInstalled "datagrip" || brew install --cask datagrip
+checkIsFormulaeInstalled "postman" || brew install --cask postman
+checkIsFormulaeInstalled "charles" || brew install --cask charles
+checkIsFormulaeInstalled "openvpn-connect" || brew install --cask openvpn-connect
+checkIsFormulaeInstalled "virtualbox" || brew install --cask virtualbox
 checkIsFormulaeInstalled "xcodes" || brew install xcodesorg/made/xcodes
 checkIsFormulaeInstalled "rbenv" || brew install rbenv
 checkIsFormulaeInstalled "nvm" || brew install nvm
