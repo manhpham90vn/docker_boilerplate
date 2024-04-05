@@ -1,0 +1,92 @@
+#!/bin/bash
+
+checkCommand() {
+    if ! (type $1 > /dev/null 2>&1); then
+        echo "Installing $1"
+        return 1
+    else
+        echo "$1 already installed"
+        return 0
+    fi
+}
+
+checkDirectory() {
+    if [ ! -d "$1" ]; then
+        echo "Directory $1 does not exist"
+        return 1
+    else
+        echo "Directory $1 already exists"
+        return 0
+    fi
+}
+
+checkFile() {
+    if [ ! -f "$1" ]; then
+        echo "File $1 does not exist"
+        return 1
+    else
+        echo "File $1 already exists"
+        return 0
+    fi
+}
+
+checkCommand "git" || exit 1
+checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+casks=(
+    "google-chrome"
+    "android-studio"
+    "visual-studio-code"
+    "docker"
+    "sourcetree"
+    "iterm2"
+    "datagrip"
+    "postman"
+    "charles"
+    "openvpn-connect"
+    "virtualbox"
+    "xcodes"
+    "google-cloud-sdk"
+)
+
+brew install --cask "${casks[@]}"
+
+taps=(
+    "hashicorp/tap"
+    "leoafarias/fvm"
+)
+
+for tap in ${taps[@]}; do
+    brew tap $tap
+done
+
+packages=(
+    "xcodesorg/made/xcodes"
+    "rbenv"
+    "nvm"
+    "pyenv"
+    "goenv"
+    "fvm"
+    "awscli"
+    "aws-sam-cli"
+    "aws-elasticbeanstalk"
+    "cloud-sql-proxy"
+    "terraform"
+    "ansible"
+    "kubectl"
+    "helm"
+    "minikube"
+)
+
+
+brew install "${packages[@]}"
+
+zshs=(
+    "git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git \"\$HOME/.oh-my-zsh\""
+    "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+)
+
+checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
+checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
+checkFile "$HOME/.gitconfig" || ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"
