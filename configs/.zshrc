@@ -15,13 +15,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion# g shell setup
 
-# g
-if [ -f "${HOME}/.g/env" ]; then
-    unalias g
-    . "${HOME}/.g/env"
-fi
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# goenv
+[[ -x "$(command -v goenv)" ]] && eval "$(goenv init -)"
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/manh/.dart-cli-completion/zsh-config.zsh ]] && . /Users/manh/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+

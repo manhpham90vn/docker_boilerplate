@@ -22,6 +22,7 @@ checkIsFormulaeInstalled() {
     fi
 }
 
+checkCommand "git" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 checkIsFormulaeInstalled "google-chrome" || brew install --cask google-chrome
 checkIsFormulaeInstalled "android-studio" || brew install --cask android-studio
@@ -38,6 +39,8 @@ checkIsFormulaeInstalled "xcodes" || brew install xcodesorg/made/xcodes
 checkIsFormulaeInstalled "rbenv" || brew install rbenv
 checkIsFormulaeInstalled "nvm" || brew install nvm
 checkIsFormulaeInstalled "pyenv" || brew install pyenv
+checkIsFormulaeInstalled "goenv" || brew install goenv
+checkIsFormulaeInstalled "fvm" || (brew tap leoafarias/fvm && brew install fvm)
 rm -rf "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
 git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
