@@ -47,6 +47,7 @@ casks=(
     "virtualbox"
     "xcodes"
     "google-cloud-sdk"
+    "evkey"
 )
 
 brew install --cask "${casks[@]}"
