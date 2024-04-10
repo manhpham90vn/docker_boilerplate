@@ -77,8 +77,8 @@ packages=(
     "kubectl"
     "helm"
     "minikube"
+    "aws-amplify"
 )
-
 
 brew install "${packages[@]}"
 
