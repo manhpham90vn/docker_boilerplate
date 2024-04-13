@@ -63,10 +63,11 @@ done
 
 packages=(
     "xcodesorg/made/xcodes"
-    "rbenv"
-    "nvm"
-    "pyenv"
-    "goenv"
+    "ruby@3.0"
+    "node@20"
+    "node@16"
+    "python@3.9"
+    "go@1.21"
     "fvm"
     "awscli"
     "aws-sam-cli"
