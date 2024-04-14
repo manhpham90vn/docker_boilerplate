@@ -1,44 +1,56 @@
 #!/bin/bash
 
 casks=(
+    # Browsers
     "google-chrome"
+    # IDEs
     "android-studio"
     "visual-studio-code"
-    "docker"
+    "datagrip"
+    # Tools
     "sourcetree"
     "iterm2"
-    "datagrip"
     "postman"
-    "charles"
-    "openvpn-connect"
-    "virtualbox"
-    "xcodes"
-    "google-cloud-sdk"
     "evkey"
+    # Proxy
+    "charles"
+    # VPN
+    "openvpn-connect"
+    # Infra
+    "vagrant"
+    "docker"
+    "virtualbox"
+    "google-cloud-sdk"
 )
 
 packages=(
+    # Xcode versions manager
     "xcodesorg/made/xcodes"
+    # Version manager
     "rbenv"
     "nvm"
     "pyenv"
     "goenv"
+    "fvm"
+    # Languages
     "ruby@3.0"
     "node@20"
     "node@16"
     "python@3.9"
     "go@1.21"
-    "fvm"
+    # AWS
     "awscli"
     "aws-sam-cli"
     "aws-elasticbeanstalk"
+    "aws-amplify"
+    # GCP
     "cloud-sql-proxy"
+    # Infrastructure
     "terraform"
     "ansible"
     "kubectl"
     "helm"
     "minikube"
-    "aws-amplify"
 )
 
 taps=(
