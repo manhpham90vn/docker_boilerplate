@@ -19,6 +19,10 @@ casks=(
 
 packages=(
     "xcodesorg/made/xcodes"
+    "rbenv"
+    "nvm"
+    "pyenv"
+    "goenv"
     "ruby@3.0"
     "node@20"
     "node@16"
