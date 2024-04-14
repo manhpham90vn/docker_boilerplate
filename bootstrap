@@ -1,5 +1,53 @@
 #!/bin/bash
 
+casks=(
+    "google-chrome"
+    "android-studio"
+    "visual-studio-code"
+    "docker"
+    "sourcetree"
+    "iterm2"
+    "datagrip"
+    "postman"
+    "charles"
+    "openvpn-connect"
+    "virtualbox"
+    "xcodes"
+    "google-cloud-sdk"
+    "evkey"
+)
+
+packages=(
+    "xcodesorg/made/xcodes"
+    "ruby@3.0"
+    "node@20"
+    "node@16"
+    "python@3.9"
+    "go@1.21"
+    "fvm"
+    "awscli"
+    "aws-sam-cli"
+    "aws-elasticbeanstalk"
+    "cloud-sql-proxy"
+    "terraform"
+    "ansible"
+    "kubectl"
+    "helm"
+    "minikube"
+    "aws-amplify"
+)
+
+taps=(
+    "hashicorp/tap"
+    "leoafarias/fvm"
+)
+
+zshs=(
+    "git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git \"\$HOME/.oh-my-zsh\""
+    "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+)
+
 checkCommand() {
     if ! (type $1 > /dev/null 2>&1); then
         echo "Installing $1"
@@ -33,61 +81,11 @@ checkFile() {
 checkCommand "git" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-casks=(
-    "google-chrome"
-    "android-studio"
-    "visual-studio-code"
-    "docker"
-    "sourcetree"
-    "iterm2"
-    "datagrip"
-    "postman"
-    "charles"
-    "openvpn-connect"
-    "virtualbox"
-    "xcodes"
-    "google-cloud-sdk"
-    "evkey"
-)
-
-brew install --cask "${casks[@]}"
-
-taps=(
-    "hashicorp/tap"
-    "leoafarias/fvm"
-)
-
 for tap in ${taps[@]}; do
     brew tap $tap
 done
-
-packages=(
-    "xcodesorg/made/xcodes"
-    "ruby@3.0"
-    "node@20"
-    "node@16"
-    "python@3.9"
-    "go@1.21"
-    "fvm"
-    "awscli"
-    "aws-sam-cli"
-    "aws-elasticbeanstalk"
-    "cloud-sql-proxy"
-    "terraform"
-    "ansible"
-    "kubectl"
-    "helm"
-    "minikube"
-    "aws-amplify"
-)
-
+brew install --cask "${casks[@]}"
 brew install "${packages[@]}"
-
-zshs=(
-    "git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git \"\$HOME/.oh-my-zsh\""
-    "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-)
 
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
 checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
