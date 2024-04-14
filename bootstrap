@@ -84,8 +84,8 @@ checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.
 for tap in ${taps[@]}; do
     brew tap $tap
 done
-brew install --cask "${casks[@]}"
-brew install "${packages[@]}"
+brew install --cask "${casks[@]}" --verbose --debug
+brew install "${packages[@]}" --verbose --debug
 
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
 checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
