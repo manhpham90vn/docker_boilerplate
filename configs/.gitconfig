@@ -1,6 +1,8 @@
 [user]
 	email = manhpham90vn@icloud.com
 	name = Manh Pham
+[init]
+	defaultBranch = master	
 [core]
 	fileMode = false
 [difftool "sourcetree"]
@@ -9,3 +11,10 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[pull]
+	rebase = false
+[alias]
+	a = add --a
+	c = commit -m
+	s = status
+	p = push
