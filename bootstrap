@@ -12,6 +12,7 @@ casks=(
     "iterm2"
     "postman"
     "evkey"
+    "xcodes"
     # Proxy
     "charles"
     # VPN

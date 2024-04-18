@@ -27,3 +27,6 @@ eval "$(pyenv init -)"
 
 # goenv
 [[ -x "$(command -v goenv)" ]] && eval "$(goenv init -)"
+
+# docker
+export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
