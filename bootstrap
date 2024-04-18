@@ -46,6 +46,7 @@ packages=(
     "aws-sam-cli"
     "aws-elasticbeanstalk"
     "aws-amplify"
+    "eksctl"
     # GCP
     "cloud-sql-proxy"
     # Infrastructure
