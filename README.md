@@ -7,10 +7,10 @@
 
 ## unlink
 ```shell
-./unlink node@16
+brew unlink node@16
 ```
 
 ## link
 ```shell
-./link node@20
+brew link --force --overwrite node@20
 ```
