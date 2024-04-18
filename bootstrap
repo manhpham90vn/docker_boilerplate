@@ -52,6 +52,7 @@ packages=(
     "kubectl"
     "helm"
     "minikube"
+    "serverless"
 )
 
 taps=(
