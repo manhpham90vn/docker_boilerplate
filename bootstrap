@@ -39,6 +39,8 @@ packages=(
     "node@16"
     "python@3.9"
     "go@1.21"
+    # Tools
+    "tree"
     # AWS
     "awscli"
     "aws-sam-cli"
@@ -48,6 +50,7 @@ packages=(
     "cloud-sql-proxy"
     # Infrastructure
     "terraform"
+    "terragrunt"
     "ansible"
     "kubectl"
     "helm"

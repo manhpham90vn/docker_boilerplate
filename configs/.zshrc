@@ -6,6 +6,7 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias sync="git add --all && git commit -m 'sync' && git push"
+alias check_size="du -sh * | sort -h"
 
 # android
 export ANDROID_HOME=$HOME/Library/Android/sdk
