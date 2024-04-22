@@ -46,6 +46,7 @@ packages=(
     "elastic/tap/elasticsearch-full"
     # Tools
     "tree"
+    "alembic"
     # AWS
     "awscli"
     "aws-sam-cli"
