@@ -39,6 +39,11 @@ packages=(
     "node@16"
     "python@3.9"
     "go@1.21"
+    # Database
+    "postgresql@16"
+    "mysql@8.0"
+    "redis@7.2"
+    "elastic/tap/elasticsearch-full"
     # Tools
     "tree"
     # AWS
@@ -62,6 +67,7 @@ packages=(
 taps=(
     "hashicorp/tap"
     "leoafarias/fvm"
+    "elastic/tap"
 )
 
 zshs=(
