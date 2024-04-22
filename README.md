@@ -24,3 +24,8 @@ brew services start postgresql@16
 ```shell
 brew services info postgresql@16
 ```
+
+## restart serivce
+```shell
+brew services restart nginx
+```
