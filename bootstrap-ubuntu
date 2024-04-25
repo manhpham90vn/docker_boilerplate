@@ -1,58 +1,33 @@
 #!/bin/bash
 
-source ./common
+source ./common.sh
+
+# Clean up
+dirs=(
+    "$HOME/.oh-my-zsh"
+    "$HOME/.zshrc"
+    "$HOME/.gitconfig"
+    "$HOME/.aws"
+    "$HOME/.ssh"
+    "/etc/apt/sources.list.d"
+    "/home/linuxbrew"
+)
 
 apts=(
-    "sudo apt install -y git"
-    "sudo apt install -y vim"
-    "sudo apt install -y zsh"
-    "sudo apt install -y curl"
-    "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -"
-    "sudo sh -c 'echo deb http://dl.google.com/linux/chrome/deb/ stable main > /etc/apt/sources.list.d/google.list'"
-    "sudo apt-get install -y google-chrome-stable"
-    "sudo snap install android-studio --classic"
-    "sudo snap install code --classic"
-    "sudo snap install datagrip --classic"
-    "sudo snap install postman"
-    "wget -qO- https://www.charlesproxy.com/packages/apt/charles-repo.asc | sudo tee /etc/apt/keyrings/charles-repo.asc"
-    "sudo sh -c 'echo deb [signed-by=/etc/apt/keyrings/charles-repo.asc] https://www.charlesproxy.com/packages/apt/ charles-proxy main > /etc/apt/sources.list.d/charles.list'"
-    "sudo apt-get update && sudo apt-get install -y charles-proxy"
+    "git"
+    "vim"
+    "zsh"
+    "curl"
 )
 
-packages=(
-    "gcc"
-    "rbenv"
-    "nvm"
-    "pyenv"
-    "goenv"
-    "ruby@3.0"
-    "node@20"
-    "node@16"
-    "python@3.9"
-    "go@1.21"
-    "postgresql@16"
-    "mysql@8.0"
-    "redis@7.2"
-    "tree"
-    "alembic"
-    "awscli"
-    "aws-sam-cli"
-    "aws-elasticbeanstalk"
-    "aws-amplify"
-    "eksctl"
-    "cloud-sql-proxy"
-    "nginx"
-    "terraform"
-    "terragrunt"
-    "ansible"
-    "kubectl"
-    "helm"
-    "minikube"
-    "serverless"
+snaps=(
+    "postman"
 )
 
-taps=(
-    "hashicorp/tap"
+snaps_classic=(
+    "android-studio"
+    "code"
+    "datagrip"
 )
 
 zshs=(
@@ -61,20 +36,10 @@ zshs=(
     "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 )
 
-for ((i = 0; i < ${#apts[@]}; i++)); do eval "${apts[$i]}"; done
-
-checkCommand "git" || exit 1
-checkCommand "curl" || exit 1
-checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-for tap in ${taps[@]}; do
-    brew tap $tap
-done
-
-brew install "${packages[@]}"
-
+sudo rm -rf "${dirs[@]}"
+sudo apt install -y "${apts[@]}"
+for ((i = 0; i < ${#snaps[@]}; i++)); do eval sudo snap install "${snaps[$i]}"; done
+for ((i = 0; i < ${#snaps_classic[@]}; i++)); do eval sudo snap install "${snaps_classic[$i]}" --classic; done
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
 checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc-ubuntu" "$HOME/.zshrc"
 checkFile "$HOME/.gitconfig" || ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"
