@@ -37,6 +37,6 @@ case "${os}" in
         export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
     ;;
     Linux*)
-        
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"        
     ;;    
 esac

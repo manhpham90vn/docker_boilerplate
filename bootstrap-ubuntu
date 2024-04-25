@@ -19,13 +19,15 @@ casks=(
 )
 
 apts=(
+    "sudo apt install -y vim"
+    "sudo apt install -y zsh"
     "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -"
-    "sudo sh -c 'echo \"deb http://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google.list'"
+    "sudo sh -c 'echo deb http://dl.google.com/linux/chrome/deb/ stable main > /etc/apt/sources.list.d/google.list'"
     "sudo apt-get install -y google-chrome-stable"
-    "sudo snap install -y android-studio --classic"
-    "sudo snap install -y code --classic"
-    "sudo snap install -y datagrip --classic"
-    "sudo snap install -y postman"
+    "sudo snap install android-studio --classic"
+    "sudo snap install code --classic"
+    "sudo snap install datagrip --classic"
+    "sudo snap install postman"
     "wget -qO- https://www.charlesproxy.com/packages/apt/charles-repo.asc | sudo tee /etc/apt/keyrings/charles-repo.asc"
     "sudo sh -c 'echo deb [signed-by=/etc/apt/keyrings/charles-repo.asc] https://www.charlesproxy.com/packages/apt/ charles-proxy main > /etc/apt/sources.list.d/charles.list'"
     "sudo apt-get update && sudo apt-get install -y charles-proxy"
@@ -108,6 +110,7 @@ checkFile() {
 }
 
 checkCommand "git" || exit 1
+checkCommand "curl" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 for tap in ${taps[@]}; do
