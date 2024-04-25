@@ -7,8 +7,6 @@ dirs=(
     "$HOME/.oh-my-zsh"
     "$HOME/.zshrc"
     "$HOME/.gitconfig"
-    "$HOME/.aws"
-    "$HOME/.ssh"
     "/etc/apt/sources.list.d"
     "/home/linuxbrew"
 )
