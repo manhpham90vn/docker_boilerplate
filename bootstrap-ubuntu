@@ -1,26 +1,12 @@
 #!/bin/bash
 
-casks=(
-    "google-chrome"
-    "android-studio"
-    "visual-studio-code"
-    "datagrip"
-    "sourcetree"
-    "iterm2"
-    "postman"
-    "evkey"
-    "xcodes"
-    "charles"
-    "openvpn-connect"
-    "vagrant"
-    "docker"
-    "virtualbox"
-    "google-cloud-sdk"
-)
+source ./common
 
 apts=(
+    "sudo apt install -y git"
     "sudo apt install -y vim"
     "sudo apt install -y zsh"
+    "sudo apt install -y curl"
     "wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -"
     "sudo sh -c 'echo deb http://dl.google.com/linux/chrome/deb/ stable main > /etc/apt/sources.list.d/google.list'"
     "sudo apt-get install -y google-chrome-stable"
@@ -34,12 +20,11 @@ apts=(
 )
 
 packages=(
-    "xcodesorg/made/xcodes"
+    "gcc"
     "rbenv"
     "nvm"
     "pyenv"
     "goenv"
-    "fvm"
     "ruby@3.0"
     "node@20"
     "node@16"
@@ -48,7 +33,6 @@ packages=(
     "postgresql@16"
     "mysql@8.0"
     "redis@7.2"
-    "elastic/tap/elasticsearch-full"
     "tree"
     "alembic"
     "awscli"
@@ -69,8 +53,6 @@ packages=(
 
 taps=(
     "hashicorp/tap"
-    "leoafarias/fvm"
-    "elastic/tap"
 )
 
 zshs=(
@@ -79,55 +61,20 @@ zshs=(
     "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 )
 
-checkCommand() {
-    if ! (type $1 > /dev/null 2>&1); then
-        echo "Installing $1"
-        return 1
-    else
-        echo "$1 already installed"
-        return 0
-    fi
-}
-
-checkDirectory() {
-    if [ ! -d "$1" ]; then
-        echo "Directory $1 does not exist"
-        return 1
-    else
-        echo "Directory $1 already exists"
-        return 0
-    fi
-}
-
-checkFile() {
-    if [ ! -f "$1" ]; then
-        echo "File $1 does not exist"
-        return 1
-    else
-        echo "File $1 already exists"
-        return 0
-    fi
-}
+for ((i = 0; i < ${#apts[@]}; i++)); do eval "${apts[$i]}"; done
 
 checkCommand "git" || exit 1
 checkCommand "curl" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 for tap in ${taps[@]}; do
     brew tap $tap
 done
 
-os="$(uname -s)"
-case "${os}" in
-    Darwin*)
-        brew install --cask "${casks[@]}"
-    ;;
-    Linux*)
-        for ((i = 0; i < ${#apts[@]}; i++)); do eval "${apts[$i]}"; done
-    ;;    
-esac
 brew install "${packages[@]}"
 
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
-checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
+checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc-ubuntu" "$HOME/.zshrc"
 checkFile "$HOME/.gitconfig" || ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"
