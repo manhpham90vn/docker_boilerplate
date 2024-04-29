@@ -45,7 +45,10 @@ packages=(
     "eksctl"
     "cloud-sql-proxy"
     "nginx"
+    "httpd"
     "php@8.1"
+    "kafka"
+    "mongodb-community@7.0"
     "hashicorp/tap/terraform"
     "terragrunt"
     "ansible"
@@ -59,6 +62,7 @@ taps=(
     "hashicorp/tap"
     "leoafarias/fvm"
     "elastic/tap"
+    "mongodb/brew"
 )
 
 zshs=(
