@@ -71,11 +71,19 @@ zshs=(
     "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 )
 
+links=(
+    "brew link --force --overwrite ruby@3.0"
+    "brew link --force --overwrite node@16"
+    "brew link --force --overwrite python@3.9"
+    "brew link --force --overwrite go@1.21"
+)
+
 checkCommand "git" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 for tap in ${taps[@]}; do brew tap $tap; done
 brew install --cask "${casks[@]}"
 brew install "${packages[@]}"
+for ((i = 0; i < ${#links[@]}; i++)); do eval "${links[$i]}"; done
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
 checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
 checkFile "$HOME/.gitconfig" || ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"

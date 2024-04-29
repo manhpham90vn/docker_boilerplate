@@ -32,3 +32,12 @@ eval "$(pyenv init -)"
 
 # docker
 export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/manh/.dart-cli-completion/zsh-config.zsh ]] && . /Users/manh/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export PATH="/usr/local/opt/ruby@3.0/bin:$PATH"
+export PATH="/usr/local/opt/node@16/bin:$PATH"
+export PATH="/usr/local/opt/go@1.21/bin:$PATH"
