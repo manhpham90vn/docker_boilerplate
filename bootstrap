@@ -22,20 +22,10 @@ casks=(
 
 packages=(
     "xcodesorg/made/xcodes"
-    "rbenv"
-    "nvm"
-    "pyenv"
-    "goenv"
     "fvm"
     "ruby@3.0"
-    "node@20"
-    "node@16"
     "python@3.9"
     "go@1.21"
-    "postgresql@16"
-    "mysql@8.0"
-    "redis@7.2"
-    "elastic/tap/elasticsearch-full"
     "tree"
     "alembic"
     "awscli"
@@ -44,11 +34,6 @@ packages=(
     "aws-amplify"
     "eksctl"
     "cloud-sql-proxy"
-    "nginx"
-    "httpd"
-    "php@8.1"
-    "kafka"
-    "mongodb-community@7.0"
     "hashicorp/tap/terraform"
     "terragrunt"
     "ansible"
@@ -61,8 +46,6 @@ packages=(
 taps=(
     "hashicorp/tap"
     "leoafarias/fvm"
-    "elastic/tap"
-    "mongodb/brew"
 )
 
 zshs=(
