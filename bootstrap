@@ -22,12 +22,11 @@ casks=(
 
 packages=(
     "xcodesorg/made/xcodes"
-    "fvm"
+    "leoafarias/fvm/fvm"
     "ruby@3.0"
     "python@3.9"
     "go@1.21"
     "tree"
-    "alembic"
     "awscli"
     "aws-sam-cli"
     "aws-elasticbeanstalk"
@@ -45,11 +44,6 @@ packages=(
     "serverless"
 )
 
-taps=(
-    "hashicorp/tap"
-    "leoafarias/fvm"
-)
-
 zshs=(
     "git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git \"\$HOME/.oh-my-zsh\""
     "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions \${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
@@ -65,7 +59,6 @@ links=(
 
 checkCommand "git" || exit 1
 checkCommand "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-for tap in ${taps[@]}; do brew tap $tap; done
 brew install --cask "${casks[@]}"
 brew install "${packages[@]}"
 for ((i = 0; i < ${#links[@]}; i++)); do eval "${links[$i]}"; done
