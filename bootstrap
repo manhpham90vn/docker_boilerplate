@@ -33,11 +33,13 @@ packages=(
     "aws-elasticbeanstalk"
     "aws-amplify"
     "eksctl"
+    "amazon-ecs-cli"
+    "cloudformation-cli"
     "cloud-sql-proxy"
     "hashicorp/tap/terraform"
     "terragrunt"
     "ansible"
-    "kubectl"
+    "kubernetes-cli"
     "helm"
     "minikube"
     "serverless"
@@ -56,7 +58,7 @@ zshs=(
 
 links=(
     "brew link --force --overwrite ruby@3.0"
-    "brew link --force --overwrite node@16"
+    "brew link --force --overwrite node@20"
     "brew link --force --overwrite python@3.9"
     "brew link --force --overwrite go@1.21"
 )

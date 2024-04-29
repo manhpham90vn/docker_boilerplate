@@ -23,5 +23,5 @@ export DOCKER_HOST=unix://$HOME/.docker/run/docker.sock
 ## [/Completion]
 
 export PATH="/usr/local/opt/ruby@3.0/bin:$PATH"
-export PATH="/usr/local/opt/node@16/bin:$PATH"
+export PATH="/usr/local/opt/node@20/bin:$PATH"
 export PATH="/usr/local/opt/go@1.21/bin:$PATH"

@@ -19,3 +19,18 @@ brew services info postgresql@16
 ```shell
 brew services restart nginx
 ```
+
+## list casks
+```shell
+brew list --cask
+```
+
+## list formula
+```shell
+brew leaves
+```
+
+## auto remove
+```shell
+brew autoremove
+```
