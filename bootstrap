@@ -18,6 +18,10 @@ casks=(
     "docker"
     "virtualbox"
     "google-cloud-sdk"
+    "redisinsight"
+    "mongodb-compass"
+    "mysqlworkbench"
+    "pgadmin4"
 )
 
 packages=(
