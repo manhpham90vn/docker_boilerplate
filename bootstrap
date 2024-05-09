@@ -69,4 +69,3 @@ for ((i = 0; i < ${#links[@]}; i++)); do eval "${links[$i]}"; done
 checkDirectory "$HOME/.oh-my-zsh" || for ((i = 0; i < ${#zshs[@]}; i++)); do eval "${zshs[$i]}"; done
 checkFile "$HOME/.zshrc" || ln -s "$(pwd)/configs/.zshrc" "$HOME/.zshrc"
 checkFile "$HOME/.gitconfig" || ln -s "$(pwd)/configs/.gitconfig" "$HOME/.gitconfig"
-
