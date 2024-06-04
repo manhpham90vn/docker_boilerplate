@@ -4,8 +4,11 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: toor
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./mysql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
     network_mode: "host"
 
   phpmyadmin:
