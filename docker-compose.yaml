@@ -9,7 +9,9 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./mysql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     network_mode: "host"
+    command: ["mysqld", "--mysql-native-password=ON"]
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
