@@ -17,7 +17,7 @@ services:
       PMA_HOST: 172.17.0.1
       PMA_PORT: 3306
     ports:
-      - 8080:80
+      - 1337:80
     depends_on:
       - mysql
 
@@ -42,7 +42,7 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - 8081:80
+      - 1338:80
     depends_on:
       - postgresql
 
@@ -61,7 +61,7 @@ services:
     environment:
       REDIS_HOSTS: local:172.17.0.1:6379
     ports:
-      - 8082:8081
+      - 1339:8081
     depends_on:
       - redis
 
@@ -80,7 +80,7 @@ services:
     environment:
       ELASTICSEARCH_URL: http://172.17.0.1:9200
     ports:
-      - 5601:5601
+      - 1340:5601
     depends_on:
       - elasticsearch
 
