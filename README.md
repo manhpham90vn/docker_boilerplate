@@ -16,7 +16,7 @@ docker-compose up
 5. Redis 7.2.5
 6. redis-commander: <http://localhost:8081>
 7. elasticsearch 6.0.1
-8 kibana <http://localhost:5601>
+8. kibana <http://localhost:5601>
 
 - remove all docker
 
