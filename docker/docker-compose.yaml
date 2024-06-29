@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.4.0
-    restart: always
+    restart: unless-stopped
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: toor
@@ -15,7 +15,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    restart: always
+    restart: unless-stopped
     container_name: phpmyadmin
     environment:
       PMA_HOST: mysql
@@ -30,7 +30,7 @@ services:
   postgresql:
     image: postgres:16.3
     container_name: postgresql
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -45,7 +45,7 @@ services:
   postgresql-admin:
     image: dpage/pgadmin4:latest
     container_name: pgadmin
-    restart: always
+    restart: unless-stopped
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -61,7 +61,7 @@ services:
   redis:
     image: redis:7.2.5-alpine
     container_name: redis
-    restart: always
+    restart: unless-stopped
     ports:
       - 6379:6379
     volumes:
@@ -71,7 +71,7 @@ services:
 
   redis-commander:
     image: rediscommander/redis-commander:latest
-    restart: always
+    restart: unless-stopped
     container_name: redis-commander
     environment:
       REDIS_HOSTS: local:redis:6379
@@ -84,7 +84,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
-    restart: always
+    restart: unless-stopped
     container_name: elasticsearch
     volumes:
       - esdata:/usr/share/elasticsearch/data
@@ -97,7 +97,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.0.1
-    restart: always
+    restart: unless-stopped
     container_name: kibana
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
