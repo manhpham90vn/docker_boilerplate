@@ -19,7 +19,7 @@ POSTGRES_DB_NAME=app
 sudo apt update
 
 # Tools
-sudo apt install -y git zsh vim curl wget htop net-tools
+sudo apt install -y git zsh vim curl wget htop net-tools tree
 
 # Install MySQL
 sudo apt install -y mysql-server
