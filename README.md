@@ -36,6 +36,43 @@ cd docker
 1. MySQL: root/toor | admin/admin
 2. PostgreSQL: postgres/postgres | admin/admin
 
+- command
+
+```shell
+sudo systemctl status mysql
+sudo systemctl status postgresql
+sudo systemctl status redis-server
+sudo systemctl status elasticsearch
+```
+
+## Run
+
+- run process inject .env file
+
+```shell
+dotenvx run -- node index.js
+```
+
+## Check
+
+- find process by name
+
+```shell
+ps aux | grep mysql
+```
+
+- find process by port
+
+```shell
+sudo netstat -nlp | grep :9200
+```
+
+- find file by name
+
+```shell
+sudo find /etc -type f -name "*.yml"
+```
+
 ## Fix
 
 - fix arm64 build on docker linux
