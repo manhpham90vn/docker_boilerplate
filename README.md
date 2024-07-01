@@ -55,6 +55,12 @@ sudo systemctl status elasticsearch
 dotenvx run -- node index.js
 ```
 
+- show folder structure
+
+```shell
+tree -I 'node_modules|.git'
+```
+
 ## Check
 
 - find process by name
