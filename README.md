@@ -35,6 +35,8 @@ cd docker
 
 1. MySQL: root/toor | admin/admin
 2. PostgreSQL: postgres/postgres | admin/admin
+3. Redis
+4. Elastic Search
 
 - command
 
