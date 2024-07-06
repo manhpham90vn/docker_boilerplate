@@ -5,7 +5,7 @@
 - command
 
 ```shell
-docker-compose up
+docker-compose up -d
 ```
 
 1. MySQL 8.4.0: root/toor | admin/admin

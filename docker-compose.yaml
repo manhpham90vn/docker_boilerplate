@@ -9,7 +9,7 @@ services:
       - 3306:3306  
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./mysql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/mysql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - dev-network
 
@@ -38,7 +38,7 @@ services:
       - 5432:5432
     volumes:
       - postgresql-data:/var/lib/postgresql/data
-      - ./postgresql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/postgresql/initdb.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - dev-network  
 
