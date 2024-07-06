@@ -5,7 +5,6 @@
 - command
 
 ```shell
-cd docker
 docker-compose up
 ```
 
@@ -21,7 +20,6 @@ docker-compose up
 - remove all docker
 
 ```shell
-cd docker
 ./remove-docker.sh
 ```
 
