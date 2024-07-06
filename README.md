@@ -34,7 +34,7 @@ docker-compose up
 1. MySQL: root/toor | admin/admin
 2. PostgreSQL: postgres/postgres | admin/admin
 3. Redis
-4. Elastic Search
+4. ElasticSearch
 
 - command
 
@@ -45,7 +45,7 @@ sudo systemctl status redis-server
 sudo systemctl status elasticsearch
 ```
 
-## Run
+## Common Command
 
 - run process inject .env file
 
@@ -53,13 +53,11 @@ sudo systemctl status elasticsearch
 dotenvx run -- node index.js
 ```
 
-- show folder structure
+- show folder structure ignore node_modules and git
 
 ```shell
 tree -I 'node_modules|.git'
 ```
-
-## Check
 
 - find process by name
 
@@ -78,8 +76,6 @@ sudo netstat -nlp | grep :9200
 ```shell
 sudo find /etc -type f -name "*.yml"
 ```
-
-## Fix
 
 - fix arm64 build on docker linux
 
