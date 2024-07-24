@@ -23,28 +23,6 @@ docker-compose up -d
 ./remove-docker.sh
 ```
 
-## bootstrap use command
-
-- command
-
-```shell
-./init.sh
-```
-
-1. MySQL: root/toor | admin/admin
-2. PostgreSQL: postgres/postgres | admin/admin
-3. Redis
-4. ElasticSearch
-
-- command
-
-```shell
-sudo systemctl status mysql
-sudo systemctl status postgresql
-sudo systemctl status redis-server
-sudo systemctl status elasticsearch
-```
-
 ## Common Command
 
 - run process inject .env file

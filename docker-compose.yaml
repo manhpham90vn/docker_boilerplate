@@ -1,4 +1,45 @@
 services:
+  nginx:
+    build:
+      context: docker/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./logs:/var/log/nginx
+      - ./src:/var/www/html
+    networks:
+      - dev-network
+
+  php:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    container_name: php
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - dev-network
+
+  apache:
+    build:
+      context: docker/apache
+      dockerfile: Dockerfile
+    container_name: apache
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html
+      - ./logs:/var/log/apache2
+    networks:
+      - dev-network
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:8.4.0
     restart: unless-stopped
@@ -21,7 +62,7 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - 80:80
+      - 81:80
     depends_on:
       - mysql
     networks:
@@ -52,7 +93,7 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - 81:80
+      - 82:80
     depends_on:
       - postgresql
     networks:
