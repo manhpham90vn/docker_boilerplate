@@ -9,31 +9,31 @@ services:
       - 80:80
     volumes:
       - ./logs:/var/log/nginx
-      - ./src:/var/www/html
+      - ./wordpress:/var/www/html
     networks:
       - dev-network
 
   php:
     build:
       context: docker/php
-      dockerfile: Dockerfile
+      dockerfile: wordpress.Dockerfile
     container_name: php
     restart: unless-stopped
     volumes:
-      - ./src:/var/www/html
+      - ./wordpress:/var/www/html
     networks:
       - dev-network
 
   apache:
     build:
       context: docker/apache
-      dockerfile: Dockerfile
+      dockerfile: laravel.Dockerfile
     container_name: apache
     restart: unless-stopped
     ports:
       - 80:80
     volumes:
-      - ./src:/var/www/html
+      - ./laravel:/var/www/html
       - ./logs:/var/log/apache2
     networks:
       - dev-network

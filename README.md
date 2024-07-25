@@ -2,10 +2,10 @@
 
 ## bootstrap use docker
 
-- command
+- wordpress apache
 
 ```shell
-docker-compose up -d
+docker-compose up apache mysql phpmyadmin redis redis-commander
 ```
 
 1. MySQL 8.4.0: root/toor | admin/admin
