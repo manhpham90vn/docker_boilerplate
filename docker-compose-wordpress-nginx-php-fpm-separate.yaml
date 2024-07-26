@@ -1,0 +1,87 @@
+services:
+  nginx:
+    build:
+      context: wordpress-nginx-php-fpm-separate/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./logs:/var/log/nginx
+      - ./wordpress:/var/www/html
+    networks:
+      - dev-network
+
+  php:
+    build:
+      context: wordpress-nginx-php-fpm-separate/php
+      dockerfile: Dockerfile
+    container_name: php
+    restart: unless-stopped
+    volumes:
+      - ./wordpress:/var/www/html
+    networks:
+      - dev-network
+
+  mysql:
+    image: mysql:8.4.0
+    restart: unless-stopped
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: wordpress
+    ports:
+      - 3306:3306  
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - dev-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - 81:80
+    depends_on:
+      - mysql
+    networks:
+      - dev-network  
+
+  redis:
+    image: redis:7.2.5-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+    networks:
+      - dev-network  
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    restart: unless-stopped
+    container_name: redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+    networks:
+      - dev-network  
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  dev-network:
+    driver: bridge

@@ -1,7 +1,6 @@
-#!/bin/bash
-
+@echo off
 echo Stopping all running containers...
-docker stop $(docker ps -aq)
+for /f "tokens=*" %%i in ('docker ps -aq') do docker stop %%i
 
 echo Pruning all stopped containers...
 docker container prune -f
@@ -19,3 +18,4 @@ echo Pruning all unused system objects...
 docker system prune
 
 echo Cleanup completed.
+pause
