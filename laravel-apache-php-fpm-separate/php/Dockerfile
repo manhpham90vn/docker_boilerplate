@@ -1,6 +1,6 @@
 FROM php:8.3.9-fpm-alpine3.20
 
-RUN apk add --no-cache build-base autoconf unzip libzip-dev
+RUN apk add --no-cache build-base autoconf libzip-dev
 
 RUN docker-php-ext-install mysqli pdo_mysql zip
 

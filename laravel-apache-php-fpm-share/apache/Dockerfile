@@ -1,6 +1,6 @@
 FROM php:8.3.9-apache-bookworm
 
-RUN apt update && apt install -y autoconf unzip libzip-dev
+RUN apt update && apt install -y autoconf libzip-dev
 
 RUN docker-php-ext-install mysqli pdo_mysql zip
 
