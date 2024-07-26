@@ -12,12 +12,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-VOLUME [ "/var/www/html/vendor" ]
-
 WORKDIR /var/www/html
-
-COPY laravel/composer.* /var/www/html
-
-RUN composer install --no-scripts
 
 CMD ["php-fpm"]

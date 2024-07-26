@@ -14,12 +14,6 @@ COPY laravel-apache-php-fpm-share/apache/000-default.conf /etc/apache2/sites-ava
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-VOLUME [ "/var/www/html/vendor" ]
-
 WORKDIR /var/www/html
-
-COPY laravel/composer.* /var/www/html
-
-RUN composer install --no-scripts
 
 CMD ["apache2-foreground"]

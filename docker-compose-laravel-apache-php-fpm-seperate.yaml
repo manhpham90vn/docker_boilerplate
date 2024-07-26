@@ -23,7 +23,6 @@ services:
     volumes:
       - ./laravel:/var/www/html
       - ./logs:/var/www/html/storage/logs
-      - laravel-vendor:/var/www/html/vendor
     networks:
       - dev-network
 
@@ -115,7 +114,6 @@ volumes:
   redis-data:
   postgresql-data:
   pgadmin:
-  laravel-vendor:
 
 networks:
   dev-network:
